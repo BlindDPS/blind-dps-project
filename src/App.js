@@ -1,5 +1,22 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+
+import { MathJaxContext } from 'better-react-mathjax';
+
+const config = {
+  loader: { load: ["[tex]/html"]},
+  tex: {
+    packages: { "[+]": ["html"] },
+    inlineMath: [
+      ["$", "$"],
+      ["\\(", "\\)"]
+    ],
+    displayMath: [
+      ["$$", "$$"],
+      ["\\[", "\\]"]
+    ]
+  }
+};
 
 function App() {
   return (
