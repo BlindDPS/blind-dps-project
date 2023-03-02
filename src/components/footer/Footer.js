@@ -16,7 +16,7 @@ export default class Footer extends Component{
         <div className="container">
             <div className="content has-text-centered">
             <LinkButton link={""} icon={<FaFilePdf />} text="Paper"/>
-            <LinkButton link={""} icon={<VscGithub />} text="Code (TBA)"/>
+            <LinkButton link={""} icon={<VscGithub />} text="Code"/>
             </div>
             <div className="columns is-centered">
             <div className="column is-8">
