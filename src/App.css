@@ -146,6 +146,11 @@ code, pre {
   display: inline-block;
 }
 
+.author-block-small {
+  display: inline-block;
+  font-size: 1rem;
+}
+
 @media screen and (min-width: 1024px){
 .container {
     max-width: 960px;
