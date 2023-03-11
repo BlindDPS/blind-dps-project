@@ -47,14 +47,14 @@ const AbstactBlock = () => (
     </section>
 )
 
-export default class Section1 extends Component{
-    render(){
-        return (
-            <Fragment>
-                <br />
-                <OverviewBlock />
-                <AbstactBlock />
-            </Fragment>
-        );
-    }
+const Section1 = () => {
+return (
+    <Fragment>
+        <br />
+        <OverviewBlock />
+        <AbstactBlock />
+    </Fragment>
+);
 }
+
+export default Section1;
