@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import { Button, Grid, ToggleButton, ToggleButtonGroup } from '@mui/material';
+import { Stack, Fade, Button, Grid, ToggleButton, ToggleButtonGroup } from '@mui/material';
 import ReactSwipe from 'react-swipe'
 import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
-
+import { AiFillLeftCircle, AiFillRightCircle} from 'react-icons/ai'
 
 const CenterWrapper = (props) => {
     return (
@@ -18,8 +18,7 @@ const CenterWrapper = (props) => {
     );
 }
 
-const IamgeComareSlider = (props) => {
-    const imgs = props.imgs
+const IamgeComareSlider = ({imgs}) => {
     return (
         <ReactCompareSlider
             itemOne={<ReactCompareSliderImage src={imgs.input} alt='input image'/>}
@@ -28,8 +27,29 @@ const IamgeComareSlider = (props) => {
     );
 }
 
-const Carousel = ({images}) => {
+const Carousel = ({images, index, onButton}) => {
     let reactSwipeEl;
+
+    const nextIndex = (index, change, length) => {
+        let next_idx = (index + change);
+        if (next_idx < 0){
+            next_idx = length + next_idx;
+        }
+        else {
+            next_idx = next_idx % length;
+        }
+        return next_idx;
+    }
+
+    const pushPrev = () => {
+        reactSwipeEl.prev();
+        onButton(nextIndex(index, -1, images.length));
+    }
+
+    const pushNext = () => {
+        reactSwipeEl.next();
+        onButton(nextIndex(index, 1, images.length));
+    }
 
     // console.log(images);
     return (
@@ -38,56 +58,84 @@ const Carousel = ({images}) => {
                 className="carousel"
                 swipeOptions={{continuous: true}}
                 ref={el => (reactSwipeEl = el)}
+                childCount={images.length}
             >
-                <div>
-                    <IamgeComareSlider imgs={images[0]}/>
-                </div>
-                <div> Pane 2 </div>
-                <div> Pane 3 </div>
+                {images.map((image_pair) => {
+                    console.log(image_pair);
+                    return (
+                        <div>
+                        <IamgeComareSlider imgs={image_pair} />
+                        </div>
+                    );
+                    })}
             </ReactSwipe>
-            <Button onClick={() => reactSwipeEl.prev()}> Prev </Button>
-            <Button onClick={() => reactSwipeEl.next()}> Next </Button>
+            <br />
+            <Stack justifyContent="center" alignItems="center" direction="row" spacing={2}>
+                <Button startIcon={<AiFillLeftCircle />} variant={"outlined"} onClick={() => pushPrev()}> Prev </Button>
+                <Button endIcon={<AiFillRightCircle />}variant={"outlined"} onClick={() => pushNext()}> Next </Button>
+            </Stack>
         </div>
     );
 }
 
-const GridKernel = ({task, kernels}) => {
+const GridKernel = ({kernels}) => {
     return (
-        <>
-        <Grid item md={6}>
-            <span>Reconstructed Kernel</span>
-            <div style={{backgroundColor: "blue"}}>
-                what
-            </div>
+        <Grid container spacing={2}>
+            <Grid item md={6}>
+                <>
+                <span style={{fontWeight:"bold"}}>Estimated Kernel</span>
+                <img id="method"
+                    height={"100%"}
+                    src={kernels.recon}
+                    alt={"loading.."}/>
+                </>
+            </Grid>
+            <Grid item md={6}>
+                <>
+                <span style={{fontWeight:"bold"}}>True Kernel</span>
+                <img id="method"
+                    height={"100%"}
+                    src={kernels.truth}
+                    alt={"loading.."}/>
+                </>
+            </Grid>
         </Grid>
-        <Grid item md={6}>
-            <span>True Kernel</span>
-            <div style={{backgroundColor: "green"}}>
-                {task}
-            </div>
-        </Grid>
-        </>
     );
 }
 
-const IamgeDisplay = ({task}) => {
-const images = [{
-        'input': process.env.PUBLIC_URL + '/imgs/results/' + task + '/input.png',
-        'recon': process.env.PUBLIC_URL + '/imgs/results/' + task + '/truth.png',
-    }];
+function range(start, end){
+    let array = [];
+    for (let i=start; i<end; i++){
+        array.push(i);
+    }
+    return array;
+}
 
-    const kernels = [{
-        'recon': process.env.PUBLIC_URL + '/imgs/results/' + task + '/recon_ker.png',
-        'truth': process.env.PUBLIC_URL + '/imgs/results/' + task + '/truth_ker.png',
-    }];
+const IamgeDisplay = ({task}) => {
+
+    const [index, setIndex] = useState(0);
+
+    const images = range(0, 3).map((idx) => {
+        return ({
+            'input': process.env.PUBLIC_URL + '/imgs/results/' + task + '/input_'+idx+'.png',
+            'recon': process.env.PUBLIC_URL + '/imgs/results/' + task + '/recon_'+idx+'.png',
+        });
+    })
+
+    const kernels = range(0,3).map((idx) => {
+        return ({
+            'recon': process.env.PUBLIC_URL + '/imgs/results/' + task + '/recon_ker_'+idx+'.png',
+            'truth': process.env.PUBLIC_URL + '/imgs/results/' + task + '/truth_ker_'+idx+'.png',
+        });
+    });
 
     return (
         <Grid container spacing={2} style={{margin: "1rem 0"}}>
             <Grid item xs={8}>
-                <Carousel images={images}/>
+                <Carousel images={images} index={index} onButton={setIndex}/>
             </Grid> 
             <Grid item xs={4}>
-                <GridKernel task={task} kernels={kernels} />
+                <GridKernel task={task} kernels={kernels[index]} />
             </Grid>
         </Grid>
     )
