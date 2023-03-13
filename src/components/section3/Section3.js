@@ -72,7 +72,7 @@ const Carousel = ({images, kernels, task, index, onButton}) => {
                         </ReactSwipe>
                     </Grid>
                     <Grid item xs={4} md={4} sm={4}>
-                        <div style={{margin: '0 0 0 1.4rem'}}>
+                        <div style={{margin: '0 0 0 1.24rem'}}>
                             <GridKernel task={task} kernels={kernels[index]} />
                         </div>
                     </Grid>
