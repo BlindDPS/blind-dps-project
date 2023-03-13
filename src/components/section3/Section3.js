@@ -51,7 +51,6 @@ const Carousel = ({images, kernels, task, index, onButton}) => {
         onButton(nextIndex(index, 1, images.length));
     }
 
-    // console.log(images);
     return (
             <Grid container direction="column" style={{margin: '1.5rem 0 0 0'}}>
                 <Grid container direction="row">
@@ -64,7 +63,6 @@ const Carousel = ({images, kernels, task, index, onButton}) => {
                             childCount={images.length}
                             >
                             {images.map((image_pair) => {
-                                console.log(image_pair);
                                 return (
                                     <div>
                                         <IamgeComareSlider imgs={image_pair}/>
