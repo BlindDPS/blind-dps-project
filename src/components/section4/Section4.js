@@ -160,6 +160,11 @@ const Content = () => {
             </ToggleButtonGroup>
             <div style={{margin: "2rem"}}></div>
             <ErrorGraph data={partialData} task={task}/>
+
+            <MathJax>
+                <p>Measured on 20 samples. Mean {'$\\pm 1.0\\sigma$'} is displayed.</p>
+            </MathJax>
+            
             <Grid container direction="column">
                 <Grid item>
                     <ImageGrid time={time} task={task}/>
@@ -168,7 +173,7 @@ const Content = () => {
                     <KernelGrid time={time} task={task}/>
                 </Grid>
             </Grid>
-
+            
             <Stack direction="row" spacing={2} style={{padding:'2rem 0 0 0'}} sx={{mb:1}} alignItems="center">
                 <GiBackwardTime />
                 <Slider defaultValue={0} step={10} min={0} max={1000} onChange={handleSlider}/>
