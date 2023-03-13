@@ -1,11 +1,189 @@
-import React, {Component, Fragment} from "react";
+import React, {useState} from "react";
+import { Grid, Slider, Stack, ToggleButton, ToggleButtonGroup } from "@mui/material";
+import { GiBackwardTime } from "react-icons/gi"
+import Chart from "react-apexcharts";
+import { MathJax } from 'better-react-mathjax';
 
-export default class Section4 extends Component{
-    render(){
-        return (
-            <Fragment>
-                
-            </Fragment>
-        );
-    }
+let _ = require('lodash');
+
+const CenterWrapper = (props) => {
+    return (
+        <section className="section">
+            <div className="container is-max-desktop">
+                <div className="columns is-centered has-text-centered">
+                    <div className="column is-four-fifths">
+                        {props.content}
+                    </div>
+                </div>
+            </div>
+        </section>
+    );
 }
+
+const ErrorGraph = ({data, task}) => {
+    let color = (task==="deblur") ? "#d4526e":"#33b2bf";
+    let state = {
+        series: data,
+        options: {
+            chart: {
+            height: '10rem',
+            type: 'rangeArea',
+            animations: {
+                // speed: 500
+                enabled: false
+            },
+        },
+        grid: {show: false},
+        zoom: {enabled: false},
+        xaxis: {
+            overwriteCategories: ["1000", "900", "800", "700", "600", "500", "400", "300", "200", "100", "0"],
+            tickAmount: 10,
+            max:1000,
+        },
+        yaxis: {
+            title: {
+              text: 'Residue'
+            }
+          },
+        colors: [color, color],
+        dataLabels: {
+          enabled: false
+        },
+        fill: {
+          opacity: [0.24, 1]
+        },
+        forecastDataPoints: {
+          count: 2
+        },
+        legend: {
+            customLegendItems:['Median','$$\\pm \\sigma$$'],
+            offsetY: 10
+        },
+        stroke: {
+          curve: 'straight',
+          width: [0, 2]
+        },
+        tooltip: {
+            enabled: true
+        }
+      },
+    }
+    
+    return (
+    <div>
+        <Chart options={state.options} series={state.series} type="rangeArea" height="300rem"/>
+    </div>);
+};
+
+const ImageGrid = ({task, time}) => {
+    return (
+        <Grid container spacing={2} direction='row'>
+            <Grid item xs={4} sm={4}>
+                <p style={{fontWeight: "bold"}}>Input</p>
+                <div style={{display: 'flex'}}>
+                    <img alt='input' src={process.env.PUBLIC_URL + '/imgs/results/motion/input_0.png'}/>
+                </div>
+            </Grid>
+            <Grid item xs={4} sm={4}>
+                <p><MathJax>{"$ \\mathbf{x_0}$"}</MathJax></p>
+                <div style={{display: 'flex'}}>
+                    <img alt='x0' src={process.env.PUBLIC_URL + '/imgs/results/motion/input_0.png'}/>
+                </div>
+            </Grid>
+            <Grid item xs={4} sm={4}>
+                <p style={{fontWeight: "bold"}}>Truth</p>
+                <div style={{display: 'flex'}}>
+                    <img alt='truth' src={process.env.PUBLIC_URL + '/imgs/results/motion/input_0.png'}/>
+                </div>
+            </Grid>
+        </Grid>
+    );
+}
+
+const KernelGrid = ({task, time}) => {
+    return (
+        <Grid container spacing={2} direction='row'>
+            <Grid item xs={4} sm={4} style={{display: 'flex'}}>
+                <img alt='input' src={process.env.PUBLIC_URL + '/imgs/results/motion/recon_ker_0.png'}/>
+            </Grid>
+            <Grid item xs={4} sm={4} style={{display: 'flex'}}>
+                <img alt='x0' src={process.env.PUBLIC_URL + '/imgs/results/motion/recon_ker_0.png'}/>
+            </Grid>
+            <Grid item xs={4} sm={4} style={{display: 'flex'}}>
+                <img alt='truth' src={process.env.PUBLIC_URL + '/imgs/results/motion/recon_ker_0.png'}/>
+            </Grid>
+        </Grid>
+    );
+}
+
+const Content = () => {
+   
+    const [time, setTime] = useState(1000);
+    const [task, setTask] = useState("deblur");
+    const tasks = ['deblur', 'turbulence'];
+    const data = {'deblur': require('./deblur_data.json'),
+                  'turbulence': require('./turbulence_data.json')};
+    const [partialData, setPartialData] = useState(data['deblur']);
+
+    function sliceData(idx, task){
+        let discrete_idx = parseInt(idx/10);
+        let current = _.cloneDeep(data[task]);
+        if (discrete_idx >2){
+            current[0].data = current[0].data.slice(0, discrete_idx);
+            current[1].data = current[1].data.slice(0, discrete_idx);
+        }
+        return current;
+    }
+
+    const handleSlider = (e, v) => {
+        setTime(v);
+        setPartialData(sliceData(v, task))
+    }
+    
+    const onTaskToggle = (task) => {
+        setTask(task);
+        setPartialData(sliceData(time, task));
+    }
+
+    return (
+        <div>
+            <h2 className="title is-3">Progress and Estimation Error</h2>
+            <ToggleButtonGroup
+                    color="primary"
+                    value={task}
+                    aria-label="Platform">
+                {tasks.map(t => (
+                    <ToggleButton value={t} onClick={()=>{onTaskToggle(t)}} id={t} key={t}>
+                    {t}
+                    </ToggleButton>))
+                }
+            </ToggleButtonGroup>
+            <div style={{margin: "2rem"}}></div>
+            <ErrorGraph data={partialData} task={task}/>
+            <Grid container direction="column">
+                <Grid item>
+                    <ImageGrid time={time} task={task}/>
+                </Grid>
+                <Grid item>
+                    <KernelGrid time={time} task={task}/>
+                </Grid>
+            </Grid>
+
+            <Stack direction="row" spacing={2} sx={{mb:1}} alignItems="center">
+                <GiBackwardTime />
+                <Slider defaultValue={0} step={10} min={0} max={1000} onChange={handleSlider}/>
+            </Stack>
+        </div>
+    )
+}
+
+const Section4 = () => {
+    return (
+        <CenterWrapper content={<Content />} />
+    );
+}
+
+export default Section4;
+
+
+// slide value에 따라서 load하는 값을 조정.
