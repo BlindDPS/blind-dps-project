@@ -52,19 +52,19 @@ const ErrorGraph = ({data, task}) => {
         fill: {
           opacity: [0.24, 1]
         },
-        forecastDataPoints: {
-          count: 2
-        },
         legend: {
-            customLegendItems:['Median','$$\\pm \\sigma$$'],
-            offsetY: 10
+            show: false
         },
         stroke: {
           curve: 'straight',
           width: [0, 2]
         },
         tooltip: {
-            enabled: true
+            x: {
+                formatter: function(value) {
+                    return 't='+ (1000-value).toString();
+                },
+            },
         }
       },
     }
@@ -85,7 +85,7 @@ const ImageGrid = ({task, time}) => {
                 </div>
             </Grid>
             <Grid item xs={4} sm={4}>
-                <p><MathJax>{"$ \\mathbf{x_0}$"}</MathJax></p>
+                <p><MathJax>{"$ \\mathbf{\\hat{x}_0}$"}</MathJax></p>
                 <div style={{display: 'flex'}}>
                     <img alt='x0' src={process.env.PUBLIC_URL + '/imgs/results/motion/input_0.png'}/>
                 </div>
@@ -128,7 +128,7 @@ const Content = () => {
     function sliceData(idx, task){
         let discrete_idx = parseInt(idx/10);
         let current = _.cloneDeep(data[task]);
-        if (discrete_idx >2){
+        if (discrete_idx > 2){
             current[0].data = current[0].data.slice(0, discrete_idx);
             current[1].data = current[1].data.slice(0, discrete_idx);
         }
@@ -169,10 +169,12 @@ const Content = () => {
                 </Grid>
             </Grid>
 
-            <Stack direction="row" spacing={2} sx={{mb:1}} alignItems="center">
+            <Stack direction="row" spacing={2} style={{padding:'2rem 0 0 0'}} sx={{mb:1}} alignItems="center">
                 <GiBackwardTime />
                 <Slider defaultValue={0} step={10} min={0} max={1000} onChange={handleSlider}/>
             </Stack>
+            <p style={{ margin: 0, fontSize:'0.8rem'}}>⎻⎻⎻ Drag time slider ⎻⎻→</p>
+
         </div>
     )
 }
