@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Stack, Fade, Button, Grid, ToggleButton, ToggleButtonGroup } from '@mui/material';
+import { Stack, Button, Grid, ToggleButton, ToggleButtonGroup } from '@mui/material';
+import { styled } from '@mui/material/styles';
 import ReactSwipe from 'react-swipe'
 import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
 import { AiFillLeftCircle, AiFillRightCircle} from 'react-icons/ai'
@@ -27,7 +28,7 @@ const IamgeComareSlider = ({imgs}) => {
     );
 }
 
-const Carousel = ({images, index, onButton}) => {
+const Carousel = ({images, kernels, task, index, onButton}) => {
     let reactSwipeEl;
 
     const nextIndex = (index, change, length) => {
@@ -53,51 +54,56 @@ const Carousel = ({images, index, onButton}) => {
 
     // console.log(images);
     return (
-        <div>
-            <ReactSwipe
-                className="carousel"
-                swipeOptions={{continuous: true}}
-                ref={el => (reactSwipeEl = el)}
-                childCount={images.length}
-            >
-                {images.map((image_pair) => {
-                    console.log(image_pair);
-                    return (
-                        <div>
-                        <IamgeComareSlider imgs={image_pair} />
+            <Grid container direction="column" style={{margin: '1.5rem 0 0 0'}}>
+                <Grid container xs direction="row">
+                    <Grid item xs={8} md={8} sm={8}>
+                        <p style={{margin: '0 1rem 0 0', fontWeight: 'bold'}}>Input → Reconstruction</p>
+                        <ReactSwipe
+                            className="carousel"
+                            swipeOptions={{continuous: true}}
+                            ref={el => (reactSwipeEl = el)}
+                            childCount={images.length}
+                            >
+                            {images.map((image_pair) => {
+                                console.log(image_pair);
+                                return (
+                                    <div>
+                                        <IamgeComareSlider imgs={image_pair} />
+                                    </div>
+                                );
+                                })}
+                        </ReactSwipe>
+                    </Grid>
+                    <Grid xs={4} md={4} sm={4}>
+                        <div style={{margin: '0 0 0 1.4rem'}}>
+                            <GridKernel task={task} kernels={kernels[index]} />
                         </div>
-                    );
-                    })}
-            </ReactSwipe>
-            <br />
-            <Stack justifyContent="center" alignItems="center" direction="row" spacing={2}>
-                <Button startIcon={<AiFillLeftCircle />} variant={"outlined"} onClick={() => pushPrev()}> Prev </Button>
-                <Button endIcon={<AiFillRightCircle />}variant={"outlined"} onClick={() => pushNext()}> Next </Button>
-            </Stack>
-        </div>
+                    </Grid>
+                </Grid>
+                <Grid item xs style={{margin: '1rem 0 0 0'}}>
+                    <Stack justifyContent="center" alignItems="center" direction="row" spacing={2}>
+                        <Button startIcon={<AiFillLeftCircle />} variant={"outlined"} onClick={() => pushPrev()}> Prev </Button>
+                        <Button endIcon={<AiFillRightCircle />}variant={"outlined"} onClick={() => pushNext()}> Next </Button>
+                    </Stack>
+                </Grid>
+            </Grid>
     );
 }
 
 const GridKernel = ({kernels}) => {
     return (
-        <Grid container spacing={2}>
-            <Grid item md={6}>
-                <>
-                <span style={{fontWeight:"bold"}}>Estimated Kernel</span>
+        <Grid item xs spacing={2} direction="column" style={{display: 'flex-end'}}>
+            <Grid item md={6} direction="column" style={{display: 'flex'}}>
+                <p style={{fontSize: "1rem", fontWeight:"bold", margin:0}}>Estimated</p>
                 <img id="method"
-                    height={"100%"}
                     src={kernels.recon}
                     alt={"loading.."}/>
-                </>
             </Grid>
-            <Grid item md={6}>
-                <>
-                <span style={{fontWeight:"bold"}}>True Kernel</span>
+            <Grid item md={6} direction="column" style={{display: 'flex'}}>
+                <p style={{fontSize: "1rem", fontWeight:"bold", margin:'1rem 0 0 0'}}>Truth</p>
                 <img id="method"
-                    height={"100%"}
                     src={kernels.truth}
                     alt={"loading.."}/>
-                </>
             </Grid>
         </Grid>
     );
@@ -130,21 +136,14 @@ const IamgeDisplay = ({task}) => {
     });
 
     return (
-        <Grid container spacing={2} style={{margin: "1rem 0"}}>
-            <Grid item xs={8}>
-                <Carousel images={images} index={index} onButton={setIndex}/>
-            </Grid> 
-            <Grid item xs={4}>
-                <GridKernel task={task} kernels={kernels[index]} />
-            </Grid>
-        </Grid>
+        <Carousel images={images} kernels={kernels} task={task} index={index} onButton={setIndex}/>
     )
 }
 
 
 const Content = () => {
-    const tasks = ['gaussian', 'motion', 'turbulence'];
-    const [task, setTask] = useState('gaussian');
+    const tasks = ['gaussian', 'motion', 'non-sparse'];
+    const [task, setTask] = useState('motion');
 
     const onTaskToggle = (button_val) => {
         setTask(button_val);
