@@ -37,7 +37,7 @@ export default class Header extends Component{
                             </h1>
                             <div className="is-size-5 publication-authors">
                                 <AuthorBlock name="Hyungjin Chung" link="https://hj-chung.com" number="1*" />
-                                <AuthorBlock name="Jeongsol Kim" link="https://jeongsol-kim.dev" number="1*" />
+                                <AuthorBlock name="Jeongsol Kim" link="https://jeongsol.dev" number="1*" />
                                 <AuthorBlock name="Sehui Kim" link="https://bispl.weebly.com/members.html" number="1" />
                                 <AuthorBlock name="Jong Chul Ye" link="https://bispl.weebly.com/professor.html" number="1" />
                             </div>
