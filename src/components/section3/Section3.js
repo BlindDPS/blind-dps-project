@@ -55,7 +55,7 @@ const Carousel = ({images, kernels, task, index, onButton}) => {
             <Grid container direction="column" style={{margin: '1.5rem 0 0 0'}}>
                 <Grid container direction="row">
                     <Grid item xs={8} md={8} sm={8}>
-                        <p style={{margin: '0 1rem 0 0', fontWeight: 'bold'}}>Input → Reconstruction</p>
+                        <p style={{margin: '0 1rem 0 0', fontWeight: 'bold'}}>Comparison</p>
                         <ReactSwipe
                             className="carousel"
                             swipeOptions={{continuous: true}}
@@ -89,8 +89,8 @@ const Carousel = ({images, kernels, task, index, onButton}) => {
 
 const GridKernel = ({kernels}) => {
     return (
-        <Grid item xs >
-            <Grid item md={6}>
+        <Grid item>
+            <Grid item>
                 <Stack direction="column" style={{display: 'flex'}}>
                 <p style={{fontSize: "1rem", fontWeight:"bold", margin:0}}>Estimated</p>
                 <img id="method"
@@ -98,7 +98,7 @@ const GridKernel = ({kernels}) => {
                     alt={"loading.."}/>
                 </Stack>
             </Grid>
-            <Grid item md={6} >
+            <Grid item>
                 <Stack direction="column" style={{display: 'flex'}}>
                     <p style={{fontSize: "1rem", fontWeight:"bold", margin:'1rem 0 0 0'}}>Truth</p>
                     <img id="method"
