@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Stack, Button, Grid, ToggleButton, ToggleButtonGroup } from '@mui/material';
-import { styled } from '@mui/material/styles';
 import ReactSwipe from 'react-swipe'
 import { ReactCompareSlider, ReactCompareSliderImage } from 'react-compare-slider';
 import { AiFillLeftCircle, AiFillRightCircle} from 'react-icons/ai'
@@ -55,7 +54,7 @@ const Carousel = ({images, kernels, task, index, onButton}) => {
     // console.log(images);
     return (
             <Grid container direction="column" style={{margin: '1.5rem 0 0 0'}}>
-                <Grid container xs direction="row">
+                <Grid container direction="row">
                     <Grid item xs={8} md={8} sm={8}>
                         <p style={{margin: '0 1rem 0 0', fontWeight: 'bold'}}>Input → Reconstruction</p>
                         <ReactSwipe
@@ -68,13 +67,13 @@ const Carousel = ({images, kernels, task, index, onButton}) => {
                                 console.log(image_pair);
                                 return (
                                     <div>
-                                        <IamgeComareSlider imgs={image_pair} />
+                                        <IamgeComareSlider imgs={image_pair}/>
                                     </div>
                                 );
                                 })}
                         </ReactSwipe>
                     </Grid>
-                    <Grid xs={4} md={4} sm={4}>
+                    <Grid item xs={4} md={4} sm={4}>
                         <div style={{margin: '0 0 0 1.4rem'}}>
                             <GridKernel task={task} kernels={kernels[index]} />
                         </div>
@@ -92,18 +91,22 @@ const Carousel = ({images, kernels, task, index, onButton}) => {
 
 const GridKernel = ({kernels}) => {
     return (
-        <Grid item xs spacing={2} direction="column" style={{display: 'flex-end'}}>
-            <Grid item md={6} direction="column" style={{display: 'flex'}}>
+        <Grid item xs >
+            <Grid item md={6}>
+                <Stack direction="column" style={{display: 'flex'}}>
                 <p style={{fontSize: "1rem", fontWeight:"bold", margin:0}}>Estimated</p>
                 <img id="method"
                     src={kernels.recon}
                     alt={"loading.."}/>
+                </Stack>
             </Grid>
-            <Grid item md={6} direction="column" style={{display: 'flex'}}>
-                <p style={{fontSize: "1rem", fontWeight:"bold", margin:'1rem 0 0 0'}}>Truth</p>
-                <img id="method"
-                    src={kernels.truth}
-                    alt={"loading.."}/>
+            <Grid item md={6} >
+                <Stack direction="column" style={{display: 'flex'}}>
+                    <p style={{fontSize: "1rem", fontWeight:"bold", margin:'1rem 0 0 0'}}>Truth</p>
+                    <img id="method"
+                        src={kernels.truth}
+                        alt={"loading.."}/>
+                </Stack>
             </Grid>
         </Grid>
     );
