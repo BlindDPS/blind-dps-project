@@ -193,7 +193,7 @@ const Content = () => {
             
             <Stack direction="row" spacing={2} style={{padding:'2rem 0 0 0'}} sx={{mb:1}} alignItems="center">
                 <GiBackwardTime />
-                <Slider defaultValue={0} step={10} min={0} max={1000} onChange={handleSlider}/>
+                <Slider defaultValue={0} step={20} min={0} max={1000} onChange={handleSlider}/>
             </Stack>
             <p style={{ margin: 0, fontSize:'0.8rem'}}>⎻⎻⎻ Drag time slider ⎻⎻→</p>
 
