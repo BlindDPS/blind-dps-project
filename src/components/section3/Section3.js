@@ -143,7 +143,10 @@ const IamgeDisplay = ({task}) => {
 
 
 const Content = () => {
-    const tasks = ['gaussian', 'motion', 'non-sparse'];
+    const task_pair = {'motion':'motion deblur', 
+                       'gaussian':'gaussian deblur'}
+
+    const tasks = ['motion','gaussian'];
     const [task, setTask] = useState('motion');
 
     const onTaskToggle = (button_val) => {
@@ -159,7 +162,7 @@ const Content = () => {
                     aria-label="Platform">
                 {tasks.map(t => (
                     <ToggleButton value={t} onClick={()=>{onTaskToggle(t)}} id={t} key={t}>
-                    {t}
+                    {task_pair[t]}
                     </ToggleButton>))
                 }
             </ToggleButtonGroup>
