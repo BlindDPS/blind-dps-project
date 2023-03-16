@@ -75,25 +75,41 @@ const ErrorGraph = ({data, task}) => {
     </div>);
 };
 
+
+function generate_path(task, time){
+    let base = process.env.PUBLIC_URL + '/imgs/progress/' + task
+    let time_str = (typeof time === 'number') ? time.toString():time;
+    let number = time_str.padStart(4, '0');
+
+    return {
+        'img_input': base + '/io/input.png',
+        'img_progress': base + '/img/x0_' + number + '.png',
+        'ker_progress': base + '/ker/x0_' + number + '.png',
+        'img_label': base + '/io/truth.png',
+        'ker_label': base + '/io/truth_ker.png'
+    }
+}
+
 const ImageGrid = ({task, time}) => {
+    let paths = generate_path(task, 1000-time);
     return (
         <Grid container spacing={2} direction='row'>
             <Grid item xs={4} sm={4}>
                 <p style={{fontWeight: "bold"}}>Input</p>
                 <div style={{display: 'flex'}}>
-                    <img alt='input' src={process.env.PUBLIC_URL + '/imgs/results/motion/input_0.png'}/>
+                    <img alt='input' src={paths['img_input']} />
                 </div>
             </Grid>
             <Grid item xs={4} sm={4}>
                 <p><MathJax>{"$ \\mathbf{\\hat{x}_0}$"}</MathJax></p>
                 <div style={{display: 'flex'}}>
-                    <img alt='x0' src={process.env.PUBLIC_URL + '/imgs/results/motion/input_0.png'}/>
+                    <img alt='x0' src={paths['img_progress']}/>
                 </div>
             </Grid>
             <Grid item xs={4} sm={4}>
                 <p style={{fontWeight: "bold"}}>Truth</p>
                 <div style={{display: 'flex'}}>
-                    <img alt='truth' src={process.env.PUBLIC_URL + '/imgs/results/motion/input_0.png'}/>
+                    <img alt='truth' src={paths['img_label']}/>
                 </div>
             </Grid>
         </Grid>
@@ -101,16 +117,17 @@ const ImageGrid = ({task, time}) => {
 }
 
 const KernelGrid = ({task, time}) => {
+    let paths = generate_path(task, 1000-time);
     return (
         <Grid container spacing={2} direction='row'>
             <Grid item xs={4} sm={4} style={{display: 'flex'}}>
-                <img alt='input' src={process.env.PUBLIC_URL + '/imgs/results/motion/recon_ker_0.png'}/>
+                {/* <img alt='input' src={paths['ker_input']}/> */}
             </Grid>
             <Grid item xs={4} sm={4} style={{display: 'flex'}}>
-                <img alt='x0' src={process.env.PUBLIC_URL + '/imgs/results/motion/recon_ker_0.png'}/>
+                <img alt='x0' src={paths['ker_progress']}/>
             </Grid>
             <Grid item xs={4} sm={4} style={{display: 'flex'}}>
-                <img alt='truth' src={process.env.PUBLIC_URL + '/imgs/results/motion/recon_ker_0.png'}/>
+                <img alt='truth' src={paths['ker_label']}/>
             </Grid>
         </Grid>
     );
