@@ -55,7 +55,7 @@ const Carousel = ({images, kernels, task, index, onButton}) => {
             <Grid container direction="column" style={{margin: '1.5rem 0 0 0'}}>
                 <Grid container direction="row">
                     <Grid item xs={8} md={8} sm={8}>
-                        <p style={{margin: '0 1rem 0 0', fontWeight: 'bold'}}>Comparison</p>
+                        <p style={{margin: '0 1rem 0 0', fontWeight: 'bold'}}>Reconstruction</p>
                         <ReactSwipe
                             className="carousel"
                             swipeOptions={{continuous: true}}
