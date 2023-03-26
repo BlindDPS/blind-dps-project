@@ -36,13 +36,13 @@ export default class Header extends Component{
                                 Parallel Diffusion Model of Operator and Image for Blind Inverse Problems
                             </h1>
                             <div className="is-size-5 publication-authors">
-                                <AuthorBlock name="Hyungjin Chung" link="https://hj-chung.com" number="1*" />
-                                <AuthorBlock name="Jeongsol Kim" link="https://jeongsol.dev" number="1*" />
-                                <AuthorBlock name="Sehui Kim" link="https://bispl.weebly.com/members.html" number="1" />
-                                <AuthorBlock name="Jong Chul Ye" link="https://bispl.weebly.com/professor.html" number="1" />
+                                <AuthorBlock name="Hyungjin Chung" link="https://hj-chung.com" number="*" />
+                                <AuthorBlock name="Jeongsol Kim" link="https://jeongsol.dev" number="*" />
+                                <AuthorBlock name="Sehui Kim" link="https://bispl.weebly.com/members.html" />
+                                <AuthorBlock name="Jong Chul Ye" link="https://bispl.weebly.com/professor.html"  />
                             </div>
                             <div className="is-size-5 publication-authors">
-                                <span className="author-block"><sup>1</sup>Korea Advanced Institute of Science & Technology (KAIST),</span>
+                                <span className="author-block">Korea Advanced Institute of Science & Technology (KAIST),</span>
                                 <br></br> 
                                 <span className="author-block-small">* Equal contribution</span>
                             </div>
