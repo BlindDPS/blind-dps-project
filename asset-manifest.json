@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/blind-dps-project/static/css/main.be6e25f7.css",
-    "main.js": "/blind-dps-project/static/js/main.060faaf3.js",
+    "main.js": "/blind-dps-project/static/js/main.565324d8.js",
     "static/js/787.92312a22.chunk.js": "/blind-dps-project/static/js/787.92312a22.chunk.js",
     "index.html": "/blind-dps-project/index.html",
     "main.be6e25f7.css.map": "/blind-dps-project/static/css/main.be6e25f7.css.map",
-    "main.060faaf3.js.map": "/blind-dps-project/static/js/main.060faaf3.js.map",
+    "main.565324d8.js.map": "/blind-dps-project/static/js/main.565324d8.js.map",
     "787.92312a22.chunk.js.map": "/blind-dps-project/static/js/787.92312a22.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.be6e25f7.css",
-    "static/js/main.060faaf3.js"
+    "static/js/main.565324d8.js"
   ]
 }
