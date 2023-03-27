@@ -15,8 +15,8 @@ export default class Footer extends Component{
         <footer className="footer">
         <div className="container">
             <div className="content has-text-centered">
-            <LinkButton link={""} icon={<FaFilePdf />} text="Paper"/>
-            <LinkButton link={""} icon={<VscGithub />} text="Code"/>
+            <LinkButton link={"https://arxiv.org/abs/2211.10656"} icon={<FaFilePdf />} text="Paper"/>
+            <LinkButton link={"https://github.com/BlindDPS/blind-dps"} icon={<VscGithub />} text="Code"/>
             </div>
             <div className="columns is-centered">
             <div className="column is-8">
@@ -28,7 +28,7 @@ export default class Footer extends Component{
                 </p>
                 <p>
                     This means you are free to borrow the <a
-                    href="https://github.com/nerfies/nerfies.github.io">source code</a> of this website,
+                    href="https://github.com/BlindDPS/blind-dps-project">source code</a> of this website,
                     we just ask that you link back to this page in the footer.
                     Please remember to remove the analytics code included in the header of the website which
                     you do not want on your website.
