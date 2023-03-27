@@ -97,19 +97,19 @@ const ImageGrid = ({task, time}) => {
             <Grid item xs={4} sm={4}>
                 <p style={{fontWeight: "bold"}}>Input</p>
                 <div style={{display: 'flex'}}>
-                    <img alt='input' src={paths['img_input']} />
+                    <img alt='input' src={paths['img_input']} loading="lazy" />
                 </div>
             </Grid>
             <Grid item xs={4} sm={4}>
                 <p><MathJax>{"$ \\mathbf{\\hat{x}_0}$"}</MathJax></p>
                 <div style={{display: 'flex'}}>
-                    <img alt='x0' src={paths['img_progress']}/>
+                    <img alt='x0' src={paths['img_progress']} loading="lazy"/>
                 </div>
             </Grid>
             <Grid item xs={4} sm={4}>
                 <p style={{fontWeight: "bold"}}>Truth</p>
                 <div style={{display: 'flex'}}>
-                    <img alt='truth' src={paths['img_label']}/>
+                    <img alt='truth' src={paths['img_label']} loading="lazy"/>
                 </div>
             </Grid>
         </Grid>
