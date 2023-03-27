@@ -58,7 +58,7 @@ const Carousel = ({images, kernels, task, index, onButton}) => {
                         <p style={{margin: '0 1rem 0 0', fontWeight: 'bold'}}>Reconstruction</p>
                         <ReactSwipe
                             className="carousel"
-                            swipeOptions={{continuous: true}}
+                            swipeOptions={{continuous: true, disableScroll: true}}
                             ref={el => (reactSwipeEl = el)}
                             childCount={images.length}
                             >
