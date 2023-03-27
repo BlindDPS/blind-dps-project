@@ -82,11 +82,11 @@ function generate_path(task, time){
     let number = time_str.padStart(4, '0');
 
     return {
-        'img_input': base + '/io/input.png',
-        'img_progress': base + '/img/x0_' + number + '.png',
-        'ker_progress': base + '/ker/x0_' + number + '.png',
-        'img_label': base + '/io/truth.png',
-        'ker_label': base + '/io/truth_ker.png'
+        'img_input': base + '/io/input.webp',
+        'img_progress': base + '/img/x0_' + number + '.webp',
+        'ker_progress': base + '/ker/x0_' + number + '.webp',
+        'img_label': base + '/io/truth.webp',
+        'ker_label': base + '/io/truth_ker.webp'
     }
 }
 

@@ -19,7 +19,7 @@ const Content = () => {
         <div>
             <h2 className="title is-3">Uniform Prior vs. Diffusion Prior</h2>
             <img 
-                src= {process.env.PUBLIC_URL + '/imgs/ablation_uniformprior.jpg'}
+                src= {process.env.PUBLIC_URL + '/imgs/ablation_uniformprior.webp'}
                 alt='loading...'/>
             <div className="content has-text-justified" style={{padding: "1rem 0 0 0 "}}>
             <p>

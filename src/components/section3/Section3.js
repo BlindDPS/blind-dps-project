@@ -124,15 +124,15 @@ const IamgeDisplay = ({task}) => {
 
     const images = range(0, 3).map((idx) => {
         return ({
-            'input': process.env.PUBLIC_URL + '/imgs/results/' + task + '/input_'+idx+'.png',
-            'recon': process.env.PUBLIC_URL + '/imgs/results/' + task + '/recon_'+idx+'.png',
+            'input': process.env.PUBLIC_URL + '/imgs/results/' + task + '/input_'+idx+'.webp',
+            'recon': process.env.PUBLIC_URL + '/imgs/results/' + task + '/recon_'+idx+'.webp',
         });
     })
 
     const kernels = range(0,3).map((idx) => {
         return ({
-            'recon': process.env.PUBLIC_URL + '/imgs/results/' + task + '/recon_ker_'+idx+'.png',
-            'truth': process.env.PUBLIC_URL + '/imgs/results/' + task + '/truth_ker_'+idx+'.png',
+            'recon': process.env.PUBLIC_URL + '/imgs/results/' + task + '/recon_ker_'+idx+'.webp',
+            'truth': process.env.PUBLIC_URL + '/imgs/results/' + task + '/truth_ker_'+idx+'.webp',
         });
     });
 

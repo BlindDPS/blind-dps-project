@@ -5,7 +5,7 @@ const OverviewBlock = () => (
         <div className="container is-max-desktop">
             <img id="overview"
                  height={"100%"}
-                 src={process.env.PUBLIC_URL + "/imgs/cover.png"}
+                 src={process.env.PUBLIC_URL + "/imgs/cover.webp"}
                  alt={"overview"}>
             </img>
             <h2 className="subtitle has-text-centered">
